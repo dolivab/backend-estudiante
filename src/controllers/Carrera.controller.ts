@@ -3,7 +3,8 @@ import { Request, Response } from "express";
 import { 
     srvCreateCarrera,
     srvGetCarreraByID,
-    srvGetCarreras 
+    srvGetCarreras,
+    srvDeleteCarrera
 } from "../services/carrera.service";
 
 
@@ -23,11 +24,11 @@ export const getCarreras = async (req: Request, res: Response) => {
 export const getCarrera = async(req: Request, res: Response) => {
 
     try {
-        const { id } = req.params;
+        const { idCarrera } = req.params;
     
-        const carrera = await srvGetCarreraByID(+id);
+        const carrera = await srvGetCarreraByID(+idCarrera);
     
-        if(!carrera) return res.status(404).json({ message: 'No se encontró la carrera con ID ' + id });
+        if(!carrera) res.status(404).json({ message: 'No se encontró la carrera con ID ' + idCarrera });
     
         res.status(200).json(carrera);
     
@@ -52,6 +53,49 @@ export const createCarrera = async (req: Request, res: Response) => {
 
     } catch (error) {
         console.log('Error al crear la carrera' + error)
+    }
+
+}
+
+// ACTUALIZAR UNA CARRERA
+export const updateCarrera = async (req: Request, res: Response) => {
+
+    const { id } = req.params; // const datos = req.params; // const id = datos.id;
+    const { nombreCarrera } = req.body;
+
+    try {
+        const carrera = await srvGetCarreraByID(+id);
+
+        if(!carrera) res.status(404).json({ message: 'No se encontró la carrera con ID ' + id });
+
+        const carreraUpdated = await srvCreateCarrera(nombreCarrera);
+
+        res.status(200).json(carreraUpdated)
+
+    }
+    catch (error) {
+        console.log('Error al actualizar la carrera' + error)
+    }
+
+}
+
+// ELIMINAR UNA CARRERA
+export const deleteCarrera = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+        const carrera = await srvGetCarreraByID(+id);
+
+        if(!carrera) res.status(404).json({ message: 'No se encontró la carrera con ID ' + id });
+
+        // eliminar la carrera
+        await srvDeleteCarrera(+id);
+
+        res.status(200).json({ message: 'Carrera eliminada' })
+
+    }
+    catch (error) {
+        console.log('Error al eliminar la carrera' + error)
     }
 
 }

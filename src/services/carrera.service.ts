@@ -36,7 +36,7 @@ export const srvGetCarreraByID = async (pIdCarrera: number) => {
         where: { idCarrera: pIdCarrera }
     })
 
-    return carrera;
+    return await carrera;
 
 }
 
