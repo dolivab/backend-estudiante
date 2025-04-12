@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { getCarreras, getCarrera, createCarrera, updateCarrera, deleteCarrera } from '../controllers/carrera.controller';
+import { getCarreras, getCarrera, createCarrera, updateCarrera, deleteCarrera } from '../controllers/Carrera.controller';
 
 const router = Router();
 

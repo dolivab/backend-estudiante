@@ -4,7 +4,8 @@ import {
     srvCreateCarrera,
     srvGetCarreraByID,
     srvGetCarreras,
-    srvDeleteCarrera
+    srvDeleteCarrera,
+    srvUpdateCarrera
 } from "../services/carrera.service";
 
 
@@ -68,7 +69,7 @@ export const updateCarrera = async (req: Request, res: Response) => {
 
         if(!carrera) res.status(404).json({ message: 'No se encontró la carrera con ID ' + id });
 
-        const carreraUpdated = await srvCreateCarrera(nombreCarrera);
+        const carreraUpdated = await srvUpdateCarrera(+id, nombreCarrera);
 
         res.status(200).json(carreraUpdated)
 

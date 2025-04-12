@@ -17,7 +17,7 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     ssl: { rejectUnauthorized: false },
-    entities: [isProd ? 'dist/entities/**/*.js' : 'src/entities/**/*.ts']
+    entities: [isProd ? 'dist/entities/**/*.js' : 'src/entities/*.ts']
 })
 
 export const connectDB = async () => {

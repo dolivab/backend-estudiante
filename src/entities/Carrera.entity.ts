@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Estudiante } from "./Estudiante.entity";
 
 @Entity({ name: 'carrera' })
 export class Carrera {
@@ -9,5 +10,9 @@ export class Carrera {
 
     @Column({ name: 'nombre_carrera', nullable: false })
     nombreCarrera: string;
+
+    // Relacion con tabla estudiante
+    @OneToMany(() => Estudiante, (estudiante) => estudiante.carrera)
+    estudiantes: Estudiante[];
 
 }
